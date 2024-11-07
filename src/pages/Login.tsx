@@ -3,6 +3,10 @@ import { Box, Button, TextField, Icon, IconButton, InputAdornment } from '@mui/m
 import { Alert } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+//Importamos el useDispatch del react-redux
+import { useDispatch} from 'react-redux'
+//Importamos las acciones que están en el fichero authSlice.ts
+import { authActions } from '../store/authSlice';
 
 const Login: React.FC = () => {
   const bduser = 'anibal';
@@ -13,11 +17,20 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
 
+  const dispatch = useDispatch()
+
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (username === bduser && password === bdpasswd) {
+     
+      //aquí pongo el dispatch para cambiar el estado a login en el store del redux
+dispatch(authActions.login({
+  name: username, //data.user es el nombre de usuario que ha ingresado el usuario
+  rol: 'administrador'
+ }))
+ 
       navigate('/home');
     } else {
       setError(true);
