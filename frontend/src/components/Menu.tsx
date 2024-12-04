@@ -9,15 +9,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 
 const Menu: React.FC = () => {
 // Accedemos a los datos del usuario desde el estado de Redux
 const userData = useSelector((state: RootState) => state.authenticator);
 const isLoggedin = userData.isAutenticated
-
-// Imprimimos en la consola el rol del usuario
-console.log('Rol del usuario:', userData.userRol);
+const userRole = userData?.userRol;
 
 const [open, setOpen] = useState(false);
 const dispatch = useDispatch();
@@ -54,16 +53,18 @@ const DrawerList = (
         </ListItem>
       </Link>
       {/* Link a la página Reports */}
-      <Link to="/reports" style={{ textDecoration: 'none', color: 'black' }}>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <SummarizeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Informes" />
-          </ListItemButton>
-        </ListItem>
-      </Link>
+      {userRole === 'admin' && (
+            <Link to="/reports" style={{ textDecoration: 'none', color: 'black' }}>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <SummarizeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Informes" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          )}
       {/* Botón para cerrar sesión */}
       <ListItem disablePadding onClick={handleLogout}>
         <ListItemButton>
@@ -94,10 +95,10 @@ return (
           <Typography variant="h6" sx={{ flexGrow: 1, textAlign: 'center' }}>
             {userData.userName || 'Usuario'}
           </Typography>
-          {/* Icono del rol del usuario */}
-          <IconButton color="inherit">
-            <AccountCircle />
-          </IconButton>
+          {/* Renderizar icono condicionalmente según el rol */}
+        <IconButton color="inherit">
+              {userRole === 'admin' ? <AdminPanelSettingsIcon /> : <AccountCircle />}
+            </IconButton>
         </Toolbar>
       </AppBar>
     </Box>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Grid, Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'; // Para el icono de eliminar
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 // Definir la interface ItemType
 interface ItemType {
@@ -21,6 +23,10 @@ const Dashboard: React.FC = () => {
   }); // Estado para los campos del formulario
   const [error, setError] = useState<string>(''); // Estado para manejar errores
   const [itemsList, setItemsList] = useState<ItemType[]>([]); // Estado para la lista de items
+
+   // Acceder al rol del usuario desde Redux
+   const userData = useSelector((state: RootState) => state.authenticator);
+   const userRole = userData?.userRol;
 
   // Manejar cambios en los campos del formulario
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,6 +191,7 @@ const Dashboard: React.FC = () => {
                   <TableCell>{row.tipo}</TableCell>
                   <TableCell>{row.precio}</TableCell>
                   <TableCell>
+                  {userRole === 'admin' && (
                     <Button
                       variant="outlined"
                       color="secondary"
@@ -192,6 +199,7 @@ const Dashboard: React.FC = () => {
                     >
                       <DeleteForeverIcon />
                     </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))

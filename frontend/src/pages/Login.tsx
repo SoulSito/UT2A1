@@ -29,7 +29,7 @@ const Login: React.FC = () => {
           // Si hay datos, el usuario y contraseña son correctos
           dispatch(authActions.login({
             name: username,
-            rol: 'administrador', //Pendiente de como poner comprobacion automatica del rol
+            rol: response.data?.rol,  // Tomamos el rol que llega del backend //Pendiente de como poner comprobacion automatica del rol
           }));
           navigate('/home');
         } else {
