@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Reports from './pages/Reports';
 import ErrorPage from './pages/Error'; 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Ayuda from './pages/Ayuda';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'reports',
         element: <Reports />
+      },
+      {
+        path: 'Ayuda',
+        element: <Ayuda />
       }
     ]
   }

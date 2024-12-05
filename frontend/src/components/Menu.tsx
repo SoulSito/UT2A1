@@ -10,6 +10,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import HelpIcon from '@mui/icons-material/Help';
 
 
 const Menu: React.FC = () => {
@@ -65,6 +66,17 @@ const DrawerList = (
               </ListItem>
             </Link>
           )}
+           {/* Link a la página Ayuda: Visible para todos */}
+           <Link to="/Ayuda" style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <HelpIcon />
+                </ListItemIcon>
+                <ListItemText primary="Ayuda" />
+              </ListItemButton>
+            </ListItem>
+          </Link>
       {/* Botón para cerrar sesión */}
       <ListItem disablePadding onClick={handleLogout}>
         <ListItemButton>
